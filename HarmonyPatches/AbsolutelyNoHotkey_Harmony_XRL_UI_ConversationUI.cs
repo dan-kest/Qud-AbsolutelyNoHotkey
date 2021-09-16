@@ -27,9 +27,9 @@ namespace AbsolutelyNoHotkey.HarmonyPatches
         static void PostfixGetChoiceNumber(ref Keys k, ref int __result)
         {
             if (k >= Keys.D1 && k <= Keys.D9)
-			{
-				__result = -1000;
-			}
+            {
+                __result = -1000;
+            }
         }
     }
 }
