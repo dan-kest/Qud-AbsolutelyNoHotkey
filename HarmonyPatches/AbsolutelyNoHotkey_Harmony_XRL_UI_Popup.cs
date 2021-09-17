@@ -10,7 +10,7 @@ namespace AbsolutelyNoHotkey.HarmonyPatches
     class AbsolutelyNoHotkey_Harmony_XRL_UI_Popup
     {
         /// <summary>
-        /// Written based on game version 2.0.202.79 Beta
+        /// Written based on game version 2.0.201.114 Early Access
         /// - Replaces all hotkey prefix with a symbol in moderns and legacy popup UI.
         /// - Removes all hotkey functionality in modern and legacy popup UI.
         /// </summary>
@@ -28,7 +28,7 @@ namespace AbsolutelyNoHotkey.HarmonyPatches
         }
 
         /// <summary>
-        /// Written based on game version 2.0.202.79 Beta
+        /// Written based on game version 2.0.201.114 Early Access
         /// - Replaces all hotkey prefix with a symbol in modern conversation UI.
         /// - Removes all hotkey functionality in modern conversation UI.
         /// *The string pattern used to replace and UI checking condition was based on values

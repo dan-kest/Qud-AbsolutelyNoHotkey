@@ -1,7 +1,7 @@
 namespace AbsolutelyNoHotkey.Configs
 {
     /// <summary>
-    /// -- Written based on game version 2.0.202.79 Beta --
+    /// Written based on game version 2.0.201.114 Early Access
     /// Symbol reference:
     /// https://wiki.cavesofqud.com/wiki/Modding:Code_page_437
     /// </summary>

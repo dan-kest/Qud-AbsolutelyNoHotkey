@@ -8,18 +8,21 @@ namespace AbsolutelyNoHotkey.HarmonyPatches
     class AbsolutelyNoHotkey_Harmony_XRL_UI_ConversationUI
     {
         /// <summary>
-        /// Written based on game version 2.0.202.79 Beta
+        /// Written based on game version 2.0.201.114 Early Access
         /// - Replaces all hotkey prefix with a symbol in legacy conversation UI.
         /// </summary>
         [HarmonyPostfix]
         [HarmonyPatch("GetChoiceDisplayChar")]
         static void PostfixGetChoiceDisplayChar(ref string __result)
         {
-            __result = CHOICES.SYMBOL.ToString();
+            if (__result != "")
+            {
+                __result = CHOICES.SYMBOL.ToString();
+            }
         }
 
         /// <summary>
-        /// Written based on game version 2.0.202.79 Beta
+        /// Written based on game version 2.0.201.114 Early Access
         /// - Removes all hotkey functionality in legacy conversation UI.
         /// </summary>
         [HarmonyPostfix]
