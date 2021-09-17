@@ -4,7 +4,7 @@
     "title": "{{Y|Absolutely}} {{R|No}} {{W|Hotkey}}",
     "description": "Are you a {{chaotic|HOTKEY HATER}}? Good news! you will never have to encounter them ever again.\n\nThis mod simply remove {{R|ALL}} hotkeys from various popup UI and conversation UI throughout the game.\n\nIf you found any trace of unremoved hotkey, please report to the --\n\n {{B|FEDERATION}}\n {{Y|OF}}\n {{W|HOTKEY}}\n {{R|SLAYER}}\n\n-- also known as Steam workshop page.",
     "tags": "UX",
-    "version": "0.1",
+    "version": "0.1.0",
     "author": "ZoraZ",
     "previewImage": "AbsolutelyNoHotkey_Cover.png"
 }
