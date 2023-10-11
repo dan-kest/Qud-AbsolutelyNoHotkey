@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using HarmonyLib;
 using Qud.UI;
 using XRL.UI;
+using AbsolutelyNoHotkey.Concepts;
 
 namespace AbsolutelyNoHotkey.HarmonyPatches
 {
@@ -22,6 +24,7 @@ namespace AbsolutelyNoHotkey.HarmonyPatches
         /// <summary>
         /// Written based on game version 2.0.206.3 Early Access
         /// - Removes all hotkeys functionality from modern conversation UI.
+        /// - Replaces all hotkey symbols in modern conversation UI.
         /// </summary>
         [HarmonyPrefix]
         [HarmonyPatch(nameof(Popup.WaitNewPopupMessage))]
@@ -29,10 +32,17 @@ namespace AbsolutelyNoHotkey.HarmonyPatches
         {
             if (options != null)
             {
+                string pattern = @"^({{.+\|\[)[0-9a-zA-Z](\]}}.*)";
                 for (int i = 0; i < options.Count; i++)
                 {
+                    string text = options[i].text;
+                    Match match = Regex.Match(text, pattern, RegexOptions.Singleline);
+                    if (match.Success)
+                    {
+                        text = match.Groups[1].Value + Symbol.ITEM + match.Groups[2].Value;
+                    }
                     options[i] = new QudMenuItem() {
-                        text = options[i].text,
+                        text = text,
                         command = options[i].command,
                         icon = options[i].icon,
                         hotkey = "",
