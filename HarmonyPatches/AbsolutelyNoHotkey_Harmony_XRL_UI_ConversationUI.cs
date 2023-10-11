@@ -1,38 +1,37 @@
 using HarmonyLib;
 using ConsoleLib.Console;
-using AbsolutelyNoHotkey.Configs;
+using Qud.UI;
+using XRL.UI;
 
 namespace AbsolutelyNoHotkey.HarmonyPatches
 {
-    [HarmonyPatch(typeof(XRL.UI.ConversationUI))]
+    [HarmonyPatch(typeof(ConversationUI))]
     class AbsolutelyNoHotkey_Harmony_XRL_UI_ConversationUI
     {
         /// <summary>
-        /// Written based on game version 2.0.201.114 Early Access
-        /// - Replaces all hotkey prefix with a symbol in legacy conversation UI.
+        /// Written based on game version 2.0.206.3 Early Access
+        /// - Removes all hotkeys functionality from legacy conversation UI.
         /// </summary>
-        [HarmonyPostfix]
-        [HarmonyPatch("GetChoiceDisplayChar")]
-        static void PostfixGetChoiceDisplayChar(ref string __result)
+        [HarmonyPrefix]
+        [HarmonyPatch(nameof(ConversationUI.Select))]
+        static bool PrefixSelect(ref bool __result)
         {
-            if (__result != "")
+            Keys keys = Keyboard.vkCode;
+            if (!UIManager.UseNewPopups && ((keys >= Keys.D1 && keys <= Keys.D9) || (keys >= Keys.A && keys <= Keys.Z)))
             {
-                __result = CHOICES.SYMBOL.ToString();
+                string cmd = CommandBindingManager.MapKeyToCommand(Keyboard.MetaKey, null);
+                if (cmd == "CmdMoveS")
+                {
+                    ConversationUI.SelectedChoice++;
+                }
+                if (cmd == "CmdMoveN")
+                {
+                    ConversationUI.SelectedChoice--;
+                }
+                __result = true;
+                return false;
             }
-        }
-
-        /// <summary>
-        /// Written based on game version 2.0.201.114 Early Access
-        /// - Removes all hotkey functionality in legacy conversation UI.
-        /// </summary>
-        [HarmonyPostfix]
-        [HarmonyPatch("GetChoiceNumber")]
-        static void PostfixGetChoiceNumber(ref Keys k, ref int __result)
-        {
-            if (k >= Keys.D1 && k <= Keys.D9)
-            {
-                __result = -1000;
-            }
+            return true;
         }
     }
 }
