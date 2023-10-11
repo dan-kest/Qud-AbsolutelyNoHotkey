@@ -1,7 +1,9 @@
+using System;
 using HarmonyLib;
 using ConsoleLib.Console;
 using Qud.UI;
 using XRL.UI;
+using System.Reflection;
 
 namespace AbsolutelyNoHotkey.HarmonyPatches
 {
@@ -19,7 +21,11 @@ namespace AbsolutelyNoHotkey.HarmonyPatches
             Keys keys = Keyboard.vkCode;
             if (!UIManager.UseNewPopups && ((keys >= Keys.D1 && keys <= Keys.D9) || (keys >= Keys.A && keys <= Keys.Z)))
             {
-                string cmd = CommandBindingManager.MapKeyToCommand(Keyboard.MetaKey, null);
+                Assembly asm = typeof(ConversationUI).Assembly;
+                Type typ = asm.GetType("XRL.UI.CommandBindingManager") ?? asm.GetType("XRL.UI.LegacyKeyMapping");
+                MethodInfo method = typ?.GetMethod("MapKeyToCommand", BindingFlags.Public | BindingFlags.Static, null,
+                        new Type[] {typeof(int), typeof(string[])}, null);
+                string cmd = (string) method?.Invoke(null, new object[] {Keyboard.MetaKey, null});
                 if (cmd == "CmdMoveS")
                 {
                     ConversationUI.SelectedChoice++;
